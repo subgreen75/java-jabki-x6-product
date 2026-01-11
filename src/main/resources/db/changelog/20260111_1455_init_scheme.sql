@@ -1,0 +1,1 @@
+CREATE SCHEMA x6_product;
