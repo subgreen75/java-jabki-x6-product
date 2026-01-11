@@ -17,6 +17,10 @@ import ru.jabki.x6.product.model.ApiStatusFind;
 import ru.jabki.x6.product.model.Product;
 import ru.jabki.x6.product.service.ProductService;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/product")
@@ -49,7 +53,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/exists/{id}")
+    @GetMapping("/existById/{id}")
     @Operation(summary = "Проверить существует ли товар по id")
     public ResponseEntity<ApiStatusFind> existsById(@PathVariable("id") Long id) {
         Boolean exists = productService.existsById(id);
@@ -60,5 +64,12 @@ public class ProductController {
                                 (exists ? "Товар с id " + id + " найден" : "Товара с id " + id + " не существует")
                         )
                 );
+    }
+
+    @GetMapping("/existByIds/{ids}")
+    @Operation(summary = "Проверить существуют ли товары по списку id")
+    public HashMap<Long, Boolean> existsByIds(@PathVariable("ids") Set<Long> ids) {
+        HashMap<Long, Boolean> statusFind = productService.existsByIds(ids);
+        return statusFind;
     }
 }

@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import ru.jabki.x6.product.exception.ProductException;
+import ru.jabki.x6.product.model.ApiStatusFind;
 import ru.jabki.x6.product.model.Product;
 import ru.jabki.x6.product.repository.ProductRepository;
 
@@ -85,5 +89,19 @@ public class ProductService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public HashMap<Long, Boolean> existsByIds(Set<Long> ids) {
+        HashMap<Long, Boolean> result = new HashMap<>();
+        for (Long id : ids) {
+            if (existsById(id)) {
+                result.put(id, true);
+            }
+            else {
+                result.put(id, false);
+            }
+        }
+        return result;
     }
 }
