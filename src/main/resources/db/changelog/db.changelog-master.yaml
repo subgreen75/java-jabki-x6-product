@@ -6,4 +6,10 @@ databaseChangeLog:
         - sqlFile:
             path: 20260111_1455_init_scheme.sql
             relativeToChangelogFile: true
-
+  - changeSet:
+      id: init-table-product
+      author: prazumov
+      changes:
+        - sqlFile:
+            path: 20260111_1508_init_prodcut_table.sql
+            relativeToChangelogFile: true
