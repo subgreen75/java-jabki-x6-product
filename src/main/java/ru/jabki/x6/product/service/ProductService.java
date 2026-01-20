@@ -25,7 +25,6 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "product", key = "#name.id()")
     public Product create(Product product) {
         validate(product);
         return productRepository.insert(product);
